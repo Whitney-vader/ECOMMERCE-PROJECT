@@ -7,8 +7,13 @@ import Navbar from './components/Navbar';
 import HomePage from './components/Home';
 import Login from './components/Login';
 import SignUp from './components/SignUp';
-import CreateProduct from './components/CreateProduct';
-import Users from './components/Users';
+import Cart from './components/Cart';
+import Checkout from './components/Checkout';
+import ProductList from './components/ProductList';
+import ProductReview from './components/ProductReview';
+import AdminDashboard from './components/Admin';
+import AddProduct from './components/AddProduct';
+import ViewSales from './components/ViewSales';
 import Categories from './components/Categories';
 import CreateCategory from './components/CreateCategory';
 
@@ -22,10 +27,15 @@ const App = () => {
                     <Route path="/home" element={<HomePage />} />
                     <Route path="/signup" element={<SignUp />} />
                     <Route path="/login" element={<Login />} />
-                    <Route path="/create_product" element={<CreateProduct />} />
-                    <Route path="/users" element={<Users />} />
+                    <Route path="/cart" element={<Cart />} />
+                    <Route path="/checkout" element={<Checkout />} />
+                    <Route path="/products" element={<ProductList />} />
+                    <Route path="/products/:id/review" element={<ProductReview />} />
+                    <Route path="/admin" element={<AdminDashboard />} />
+                    <Route path="/admin/add_product" element={<AddProduct />} />
+                    <Route path="/admin/view_sales" element={<ViewSales />} />
                     <Route path="/categories" element={<Categories />} />
-                    <Route path="/create_category" element={<CreateCategory />} />
+                    <Route path="/categories/create" element={<CreateCategory />} />
                 </Routes>
             </div >
         </BrowserRouter>

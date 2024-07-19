@@ -99,7 +99,7 @@ const LoggedInHome = () => {
         setProductId(id)
 
         products.map(
-            (product, key) => {
+            (product) => {
                 if (product.id === id) {
                     setValue('name', product.name)
                     setValue('description', product.description)

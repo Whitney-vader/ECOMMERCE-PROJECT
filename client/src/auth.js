@@ -1,11 +1,18 @@
-import { createAuthProvider } from 'react-token-auth'
+import { createAuthProvider } from 'react-token-auth';
+
+const storage = window.localStorage; // or window.sessionStorage
 
 export const { useAuth, authFetch, login, logout } = createAuthProvider({
-    getAccessToken: session => session.access_token,
-    storage: localStorage,
-    onUpdateToken: token =>
-        fetch('/auth/refresh', {
-            method: 'POST',
-            body: token.refresh_token,
-        }).then(r => r.json()),
+  getToken: () => storage.getItem('token'),
+  storage,
+  onUpdateToken: (token) =>
+    fetch('/auth/refresh', {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json',
+      },
+      body: JSON.stringify({ refreshToken: token.refresh_token }),
+    })
+      .then((response) => response.json())
+      .then((data) => data.access_token),
 });

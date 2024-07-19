@@ -177,11 +177,6 @@ const LoggedInHome = () => {
 }
 
 
-
-
-
-
-
 const LoggedOutHome = () => {
     return (
         <div className='users'>

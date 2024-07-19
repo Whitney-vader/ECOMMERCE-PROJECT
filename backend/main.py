@@ -1,5 +1,5 @@
 from flask import Flask
-from flask_restx import Api
+from flask_restx import Api, Resource, fields
 from flask_migrate import Migrate
 from models import Product, Category, Order, OrderItem, User
 from exts import db
@@ -11,9 +11,7 @@ from categories import categories_ns
 from flask_cors import CORS
 from config import DevConfig
 
-
 def create_app():
-
     app = Flask(__name__)
     app.config.from_object(DevConfig)
 
@@ -31,6 +29,29 @@ def create_app():
     api.add_namespace(users_ns)
     api.add_namespace(categories_ns)
 
+    category_model = api.model(
+        "Category",
+        {
+            "id": fields.Integer(),
+            "name": fields.String(),
+            "created_at": fields.DateTime()
+        }
+    )
+
+    order_model = api.model(
+        "Order",
+        {
+            "id": fields.Integer(),
+            "total_price": fields.Integer(),
+            "order_date": fields.DateTime()
+        }
+    )
+
+    @api.route('/hello')
+    class HelloResource(Resource):
+        def get(self):
+            return {'message': 'Hello World'}
+
     @app.shell_context_processor
     def make_shell_context():
         return {
@@ -43,34 +64,3 @@ def create_app():
         }
 
     return app
-
-
-"""
-
-category_model = api.model(
-    "Category",
-    {
-        "id":fields.Integer(),
-        "name":fields.String(),
-        "created_at":fields.DateTime()
-    }
-)
-
-order_model = api.model(
-    "Order",
-    {
-        "id":fields.Integer(),
-        "total_price":fields.Integer(),
-        "order_date":fields.DateTime()
-    }
-)
-
-
-@api.route('/hello')
-class HelloResource(Resource):
-    def get(self):
-        return {'message': 'Hello World'}
-
-if __name__ == '__main__':
-    app.run()
-"""

@@ -23,36 +23,34 @@ login_model = auth_ns.model(
     }
 )
 
-@auth_ns.route('/signup')
-class SignUp(Resource):
+# @auth_ns.route('/signup')
+# class SignUp(Resource):
 
-    @auth_ns.expect(signup_model)
-    def post(self):
-        data = request.get_json()
+#     @auth_ns.expect(signup_model)
+#     def post(self):
+#         data = request.get_json()
 
-        username = data.get('username')
-        email = data.get('email')
+#         username = data.get('username')
+#         email = data.get('email')
 
-        db_user = User.query.filter_by(username = username).first()
-        email_user = User.query.filter_by(email = email).first()
+#         db_user = User.query.filter_by(username = username).first()
+#         email_user = User.query.filter_by(email = email).first()
 
-        #verifica che lo username sia univoco
-        if db_user is not None:
-            return jsonify({"message": f"User with username {username} already exists"})
+#         if db_user is not None:
+#             return jsonify({"message": f"User with username {username} already exists"})
         
-        #verifica che la email sia univoca
-        if email_user is not None:
-            return jsonify({"message": f"User with email {email} already exists"})
+#         if email_user is not None:
+#             return jsonify({"message": f"User with email {email} already exists"})
 
-        new_user = User(
-            username = data.get('username'),
-            email = data.get('email'),
-            password = generate_password_hash(data.get('password'))
-        )
+#         new_user = User(
+#             username = data.get('username'),
+#             email = data.get('email'),
+#             password = generate_password_hash(data.get('password'))
+#         )
 
-        new_user.save()
+#         new_user.save()
 
-        return make_response(jsonify({"message": "User created successfully"}), 201) 
+#         return make_response(jsonify({"message": "User created successfully"}), 201) 
     
 @auth_ns.route('/login')
 class Login(Resource):
